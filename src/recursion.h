@@ -15,7 +15,7 @@
 
 
 
-std::list<std::vector<int>> recursion(const std::vector<double>& z,
+cm recursion(const std::vector<double>& z,
 			const double& b,
 			const int& n,
 			const int& p,

@@ -10,16 +10,16 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// ar_alg
-std::list<std::vector<int>> ar_alg(std::vector<double> y, const int& p, const double& b);
-RcppExport SEXP _praxi_ar_alg(SEXP ySEXP, SEXP pSEXP, SEXP bSEXP) {
+// ar_alg_call
+std::list<std::vector<int>> ar_alg_call(std::vector<double> y, const int& p, const double& b);
+RcppExport SEXP _praxi_ar_alg_call(SEXP ySEXP, SEXP pSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::vector<double> >::type y(ySEXP);
     Rcpp::traits::input_parameter< const int& >::type p(pSEXP);
     Rcpp::traits::input_parameter< const double& >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(ar_alg(y, p, b));
+    rcpp_result_gen = Rcpp::wrap(ar_alg_call(y, p, b));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -35,7 +35,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_praxi_ar_alg", (DL_FUNC) &_praxi_ar_alg, 3},
+    {"_praxi_ar_alg_call", (DL_FUNC) &_praxi_ar_alg_call, 3},
     {"_praxi_rcpp_hello_world", (DL_FUNC) &_praxi_rcpp_hello_world, 0},
     {NULL, NULL, 0}
 };

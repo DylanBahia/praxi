@@ -16,7 +16,7 @@
 
 
 
-std::list<std::vector<int>> recursion(const std::vector<double>& z,
+cm recursion(const std::vector<double>& z,
 			const double& b,
 			const int& n,
 			const int& p,
@@ -48,13 +48,13 @@ cm final = dm_update(z,b,cms,n,ar_pars);
 //	std::cout << i << std::endl;
 //}
 
-std::list<std::vector<int>> output;
+//std::list<std::vector<int>> output;
 
-for(auto i:final.anoms){
-	output.push_back({i.first,i.second});
-}
+//for(auto i:final.anoms){
+//	output.push_back({i.first,i.second});
+//}
 
-return output;
+return final;
 
 }
 
