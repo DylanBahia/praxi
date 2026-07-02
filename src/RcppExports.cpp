@@ -11,7 +11,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // ar_alg_call
-std::list<std::vector<int>> ar_alg_call(std::vector<double> y, const int& p, const double& b);
+Rcpp::NumericMatrix ar_alg_call(std::vector<double> y, const int& p, const double& b);
 RcppExport SEXP _praxi_ar_alg_call(SEXP ySEXP, SEXP pSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
