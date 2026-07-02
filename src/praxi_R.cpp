@@ -14,13 +14,17 @@ Rcpp::NumericMatrix ar_alg_call(std::vector<double> y,
 					
 	cm output = ar_alg(y,p,b);
 	 
-	Rcpp::NumericMatrix mat(output.pars.size(), 3);
+	int n = output.pars.size();
+	 
+	Rcpp::NumericMatrix mat(n, 3);
 
-	for (size_t i = 0; i < output.pars.size(); ++i) {
-	    mat(i, 0) = output[i].anoms.first;
-	    mat(i, 1) = output[i].anoms.second;
-	    mat(i, 2) = output[i].pars;
-	}
-
-	return out;
+	for (std::size_t i = 0; i < n; ++i) {
+        	mat(i, 0) = std::get<0>(output.anoms[i]);
+        	mat(i, 1) = std::get<1>(output.anoms[i]);
+        	mat(i, 2) = output.pars[i];
+    	}
+    	
+    	Rcpp::colnames(mat) = Rcpp::CharacterVector::create("Start", "End", "Mean");
+    	
+	return mat;
 }
