@@ -1,4 +1,4 @@
-.praxi.class <- setClass("praxi.class",representation(y="vector",p="numeric",b="numeric",res="matrix"))
+.praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",res="matrix"))
 
 praxi.class <- function(y,p,b,res)
 {
