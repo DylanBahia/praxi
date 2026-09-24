@@ -77,7 +77,7 @@ praxi <- function(y,p,b=NULL)
   
 	result <- ar_alg_call(y,p,b)
 	#rlist <- list("cpts"=result,"data"=y,"order"=p,"penalty"=b)
-	rlist <- praxi.class(y,p,b,result[[1]],result[[2]])
+	rlist <- praxi.class(y,p,b,result[[2]],result[[1]])
 	return(rlist)
 }
 
