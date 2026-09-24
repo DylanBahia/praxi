@@ -1,8 +1,8 @@
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
 
-praxi.class <- function(y,p,b,res,cost)
+praxi.class <- function(y,p,b,cost,res)
 {
-	.praxi.class(y=y,p=p,b=b,res=res,cost=cost)	
+	.praxi.class(y=y,p=p,b=b,cost=cost,res=res)	
 }
 
 #' Find the best segmentation of data for a change-in-slope model
