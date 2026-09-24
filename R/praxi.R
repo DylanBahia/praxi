@@ -1,4 +1,4 @@
-.praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",res="matrix",cost="numeric"))
+.praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
 
 praxi.class <- function(y,p,b,res,cost)
 {
@@ -77,9 +77,23 @@ praxi <- function(y,p,b=NULL)
   
 	result <- ar_alg_call(y,p,b)
 	#rlist <- list("cpts"=result,"data"=y,"order"=p,"penalty"=b)
-	rlist <- praxi.class(y,p,b,result[[2]],result[[1]])
+	rlist <- praxi.class(y,p,b,result[[1]],result[[2]])
 	return(rlist)
 }
+
+CROPS_praxi <- function(y,p,b_min,b_max){
+  
+  func <- function(b){
+    result <- praxi(y,p,b)
+    return(list(result@cost,rep(1,nrow(result@res)),result@res))
+  }
+  
+  result <- crops::crops(func,b_min,b_max)
+  
+  return(result)
+}
+
+
 
 setMethod("plot",signature=list("praxi.class"),function(x)
 {
