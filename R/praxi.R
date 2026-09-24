@@ -1,8 +1,8 @@
-.praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",res="matrix"))
+.praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",res="matrix",cost="numeric"))
 
-praxi.class <- function(y,p,b,res)
+praxi.class <- function(y,p,b,res,cost)
 {
-	.praxi.class(y=y,p=p,b=b,res=res)	
+	.praxi.class(y=y,p=p,b=b,res=res,cost=cost)	
 }
 
 #' Find the best segmentation of data for a change-in-slope model
@@ -77,7 +77,7 @@ praxi <- function(y,p,b=NULL)
   
 	result <- ar_alg_call(y,p,b)
 	#rlist <- list("cpts"=result,"data"=y,"order"=p,"penalty"=b)
-	rlist <- praxi.class(y,p,b,result)
+	rlist <- praxi.class(y,p,b,result[[1]],result[[2]])
 	return(rlist)
 }
 

@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 
-Rcpp::NumericMatrix ar_alg_call(std::vector<double> y,
+List ar_alg_call(std::vector<double> y,
 				       const int& p,
 					const double& b){
 					
@@ -26,5 +26,5 @@ Rcpp::NumericMatrix ar_alg_call(std::vector<double> y,
     	
     	Rcpp::colnames(mat) = Rcpp::CharacterVector::create("Start", "End", "Mean");
     	
-	return mat;
+	return List::create(output.cost,mat);
 }
