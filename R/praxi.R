@@ -81,6 +81,7 @@ praxi <- function(y,p,b=NULL)
 	return(rlist)
 }
 
+#'@export
 CROPS_praxi <- function(y,p,b_min,b_max){
   
   func <- function(b){
