@@ -132,7 +132,7 @@ crops <- function(y,p,b_min,b_max){
   return(result)
 }
 
-setMethod("crops.summary",signature=list("crops.class"),function(object){
+setMethod("summary",signature=list("crops.class"),function(object){
   cat("crops analysis",sep="")
   cat('\n',sep="")
   cat('\n',sep="")
@@ -179,7 +179,7 @@ setMethod("segmentations",signature=list("crops.class"),
             }
             n <- segs %>% Map(function(.) .[[2]],.) %>% Map(length,.) %>% unlist %>% max
             mat <- segs %>% 
-              Map(function(.) paste0("(",.[[3]][1,],"," .[[3]][2,],")"),.) %>% 
+              Map(function(.) paste0("(",.[[3]][1,],",", .[[3]][2,],")"),.) %>% 
               Map(function(.) c(.,rep(NA,n-length(.))),.) %>%
               Reduce(rbind,.,matrix(nrow=0,ncol=n),right=TRUE)
             colnames(mat) <- Map(function(.) paste("anom.",.,sep=""),1:n) %>% unlist      
