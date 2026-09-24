@@ -2,10 +2,10 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 ar_alg_call <- function(y, p, b) {
-    .Call(`_praxi_ar_alg_call`, y, p, b)
+    .Call('_praxi_ar_alg_call', PACKAGE = 'praxi', y, p, b)
 }
 
 rcpp_hello_world <- function() {
-    .Call(`_praxi_rcpp_hello_world`)
+    .Call('_praxi_rcpp_hello_world', PACKAGE = 'praxi')
 }
 

@@ -1,5 +1,8 @@
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
 
+#' @importClassesFrom crops crops.class
+NULL
+
 praxi.class <- function(y,p,b,cost,res)
 {
 	.praxi.class(y=y,p=p,b=b,cost=cost,res=res)	
@@ -166,6 +169,7 @@ setMethod("subset",signature=list("crops.class"),function(x){
   crops::subset(x)
 })
 
+setGeneric("segmentations",function(object) {standardGeneric("segmentations")})
 setMethod("segmentations",signature=list("crops.class"),
           function(object)
           {
