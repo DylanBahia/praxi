@@ -81,21 +81,6 @@ praxi <- function(y,p,b=NULL)
 	return(rlist)
 }
 
-#'@export
-CROPS_praxi <- function(y,p,b_min,b_max){
-  
-  func <- function(b){
-    result <- praxi(y,p,b)
-    return(list(result@cost,rep(1,nrow(result@res)),result@res))
-  }
-  
-  result <- crops::crops(func,b_min,b_max)
-  
-  return(result)
-}
-
-
-
 setMethod("plot",signature=list("praxi.class"),function(x)
 {
   
@@ -133,3 +118,77 @@ setMethod("anomalies",signature=list("praxi.class"),function(object)
 {
   return(object@res)
 })
+
+#'@export
+crops <- function(y,p,b_min,b_max){
+  
+  func <- function(b){
+    result <- praxi(y,p,b)
+    return(list(result@cost,rep(1,nrow(result@res)),result@res))
+  }
+  
+  result <- crops::crops(func,b_min,b_max)
+  
+  return(result)
+}
+
+setMethod("crops.summary",signature=list("crops.class"),function(object){
+  cat("crops analysis",sep="")
+  cat('\n',sep="")
+  cat('\n',sep="")
+  cat("minimum penalty value = ",min(object@betas)," : maximum penalty value = ",max(object@betas),sep="")
+  cat('\n',sep="")
+  segs <- crops::segmentations(object)
+  if(is.null(segs))
+  {
+    cat("no anomalies found in the penalty interval [",min(object@betas),",",max(object@betas),"]",sep="")
+    cat('\n',sep="")
+  }
+  else
+  {
+    cat("number of segmentations calculated : ",nrow(segs),sep="")
+    cat('\n',sep="")	    
+    cat("least number of anomalies  = ",min(segs$m), " : maximum number of anomalies = ",max(segs$m),sep="")
+    cat('\n',sep="")
+  }
+  invisible()
+})
+
+setMethod("print",signature=list("crops.class"),function(x){
+  praxi::summary(x)            
+})
+
+setMethod("unique",signature=list("crops.class"),function(x){
+  crops::unique(x)
+})
+
+setMethod("subset",signature=list("crops.class"),function(x){
+  crops::subset(x)
+})
+
+setMethod("segmentations",signature=list("crops.class"),
+          function(object)
+          {
+            # appease package checks
+            . <- NULL
+            segs <- Map(object@method,unlist(object@betas))
+            valid_segs <- Filter(function(x) length(x[[2]]) > 1, segs)
+            if(length(valid_segs) == 0)
+            {
+              return(NULL)
+            }
+            n <- segs %>% Map(function(.) .[[2]],.) %>% Map(length,.) %>% unlist %>% max
+            mat <- segs %>% 
+              Map(function(.) paste0("(",.[[3]][1,],"," .[[3]][2,],")"),.) %>% 
+              Map(function(.) c(.,rep(NA,n-length(.))),.) %>%
+              Reduce(rbind,.,matrix(nrow=0,ncol=n),right=TRUE)
+            colnames(mat) <- Map(function(.) paste("anom.",.,sep=""),1:n) %>% unlist      
+            return(      
+              Map(function(beta,seg) tibble(beta=beta,Qm=seg[[1]],Q=seg[[1]]+beta*length(seg[[2]]),
+                                            m=length(seg[[2]])),
+                  unlist(object@betas),
+                  segs) %>%                                          
+                Reduce(add_row,.,tibble(beta=numeric(),Qm=numeric(),Q=numeric(),m=numeric())) %>%
+                cbind(.,mat)
+            )           
+          })
