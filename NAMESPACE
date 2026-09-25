@@ -2,6 +2,5 @@
 
 export(crops)
 export(praxi)
-exportMethods(unique)
-importFrom("(Rcpp,","evalCpp)")
-useDynLib((mypackage, .registration = TRUE))
+importFrom("Rcpp,",evalCpp)
+useDynLib(mypackage, .registration = TRUE)
