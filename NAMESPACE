@@ -2,5 +2,5 @@
 
 export(crops)
 export(praxi)
-exportMethods(unique
+exportMethods(unique)
 import(Rcpp)
