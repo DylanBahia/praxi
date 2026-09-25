@@ -9,5 +9,6 @@ Description: More about what it does (maybe more than one line).
 License: GPL (>= 2)
 Encoding: UTF-8
 Imports: Rcpp (>= 1.1.1),ggplot2,crops
+Remotes: grosed/crops@devel
 LinkingTo: Rcpp
 Config/roxygen2/version: 8.1.0

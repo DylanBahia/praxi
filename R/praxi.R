@@ -1,7 +1,5 @@
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
 
-.crops.class<-setClass("crops.class",representation(method="memoised",betas="set"))
-
 praxi.class <- function(y,p,b,cost,res)
 {
 	.praxi.class(y=y,p=p,b=b,cost=cost,res=res)	

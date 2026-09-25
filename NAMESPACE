@@ -2,4 +2,3 @@
 
 export(crops)
 export(praxi)
-importClassesFrom(crops,crops.class)
