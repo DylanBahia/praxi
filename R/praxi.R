@@ -1,3 +1,7 @@
+#' @useDynLib(mypackage, .registration = TRUE)
+#' @importFrom(Rcpp, evalCpp)
+NULL
+
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
 
 praxi.class <- function(y,p,b,cost,res)
@@ -154,7 +158,6 @@ setMethod("summary",signature=list("crops.class"),function(object){
   invisible()
 })
 
-#'@export
 setMethod("unique",signature=list("crops.class"),function(x)
 {
   # appease package checks
