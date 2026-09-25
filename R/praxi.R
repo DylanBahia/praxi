@@ -1,7 +1,6 @@
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
 
-#' @importClassesFrom crops crops.class
-NULL
+.crops.class<-setClass("crops.class",representation(method="memoised",betas="set"))
 
 praxi.class <- function(y,p,b,cost,res)
 {
@@ -130,7 +129,7 @@ crops <- function(y,p,b_min,b_max){
     return(list(result@cost,rep(1,nrow(result@res)),result@res))
   }
   
-  result <- crops::crops(func,b_min,b_max)
+  result <- praxi::unique(crops::crops(func,b_min,b_max))
   
   return(result)
 }
@@ -157,16 +156,41 @@ setMethod("summary",signature=list("crops.class"),function(object){
   invisible()
 })
 
-setMethod("print",signature=list("crops.class"),function(x){
-  praxi::summary(x)            
+setMethod("unique",signature=list("crops.class"),function(x)
+{
+  # appease package checks
+  . <- NULL
+  object<-x
+  hash_map <- new.env()
+  keys <- object@betas %>% 
+    unlist %>% 
+    Map(object@method,.) %>% 
+    Map(function(.) .[2],.) %>% 
+    Map(as.character,.)
+  key_value_pairs <- Map(tuple,keys,object@betas %>% unlist)
+  hash_map <-    
+    key_value_pairs %>%  
+    Reduce(function(pair,map) {map[[pair[[1]]]] <- pair[[2]]; return(map);},
+           .,
+           hash_map,right=TRUE)
+  object@betas <-    
+    Map(function(key) hash_map[[key]],
+        hash_map %>% ls) %>%
+    unname %>% 
+    as.set
+  return(object)
 })
 
-setMethod("unique",signature=list("crops.class"),function(x){
-  crops::unique(x)
-})
-
-setMethod("subset",signature=list("crops.class"),function(x){
-  crops::subset(x)
+setMethod("subset",signature=list("crops.class"), function(x,beta_min=0,beta_max=Inf)
+{
+  # appease package checks
+  . <- NULL
+  object <- x
+  object@betas %<>% 
+    unlist %>% 
+    Filter(function(.) . <= beta_max & . >= beta_min,.) %>% 
+    as.set
+  return(object)            
 })
 
 setGeneric("segmentations",function(object) {standardGeneric("segmentations")})
@@ -195,4 +219,29 @@ setMethod("segmentations",signature=list("crops.class"),
                 Reduce(add_row,.,tibble(beta=numeric(),Qm=numeric(),Q=numeric(),m=numeric())) %>%
                 cbind(.,mat)
             )           
+          })
+
+setMethod("plot",signature=list("crops.class"),
+          function(x)
+          {
+            # appease ggplot and tidyverse
+            . <- Q <- Qm <- m <- value <- dummy <- NULL
+            object <- x
+            df <- segmentations(object)
+            if(is.null(df))
+            {
+              return(NULL)
+            }
+            df <- cbind(df,data.frame("dummy"=1:nrow(df)))
+            p <- df %>%
+              subset(.,select = -c(beta,Q,Qm,m)) %>%
+              melt(., id=c("dummy")) %>% 
+              .[complete.cases(.), ] %>%
+              ggplot(.,aes(x=value,y=dummy)) %>% 
+              add(geom_point()) %>%
+              add(labs(x="location",y="penalty")) %>%
+              add(geom_hline(aes(yintercept=dummy))) %>%
+              add(scale_y_continuous(breaks = seq(1:nrow(df)),labels=signif(df$beta,digits=3),sec.axis = sec_axis( ~.,breaks = seq(1:nrow(df)),labels=signif(df$Qm,digits=4),name="unpenalised cost"))) %>%
+              add(theme_bw())
+            return(p)       
           })
