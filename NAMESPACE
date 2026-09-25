@@ -2,3 +2,7 @@
 
 export(crops)
 export(praxi)
+
+useDynLib(praxi, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
