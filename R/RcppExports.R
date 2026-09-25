@@ -5,7 +5,3 @@ ar_alg_call <- function(y, p, b) {
     .Call('_praxi_ar_alg_call', PACKAGE = 'praxi', y, p, b)
 }
 
-rcpp_hello_world <- function() {
-    .Call('_praxi_rcpp_hello_world', PACKAGE = 'praxi')
-}
-

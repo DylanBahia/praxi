@@ -119,7 +119,7 @@ setMethod("anomalies",signature=list("praxi.class"),function(object)
   return(object@res)
 })
 
-#'@export
+#' @export
 crops <- function(y,p,b_min,b_max){
   
   func <- function(b){
@@ -154,6 +154,7 @@ setMethod("summary",signature=list("crops.class"),function(object){
   invisible()
 })
 
+#'@export
 setMethod("unique",signature=list("crops.class"),function(x)
 {
   # appease package checks
