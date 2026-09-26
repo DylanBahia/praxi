@@ -1,5 +1,6 @@
 #' @useDynLib praxi, .registration = TRUE
 #' @importFrom Rcpp evalCpp
+#' @importFrom magrittr %>%
 NULL
 
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
