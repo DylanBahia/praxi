@@ -9,6 +9,7 @@ exportMethods(subset)
 exportMethods(unique)
 import(ggplot2)
 import(magrittr)
+import(reshape)
 import(tibble)
 importFrom(Rcpp,evalCpp)
 importFrom(sets,
