@@ -135,6 +135,7 @@ crops <- function(y,p,b_min,b_max,max_iterations=Inf){
   
   func <- function(b){
     result <- praxi(y,p,b)
+    print(nrow(result@res))
     return(list(result@cost,nrow(result@res),result@res))
   }
   
