@@ -207,12 +207,12 @@ setMethod("segmentations",signature=list("crops.class"),
             # appease package checks
             . <- NULL
             segs <- Map(object@method,unlist(object@betas))
-            valid_segs <- Filter(function(x) length(x[[2]]) > 1, segs)
+            valid_segs <- Filter(function(x) x[[2]] > 1, segs)
             if(length(valid_segs) == 0)
             {
               return(NULL)
             }
-            n <- segs %>% Map(function(.) .[[2]],.) %>% Map(length,.) %>% unlist %>% max
+            n <- segs %>% Map(function(.) .[[2]],.) %>% unlist %>% max
             mat <- segs %>% 
               Map(function(.) paste0("(",.[[3]][1,],",", .[[3]][2,],")"),.) %>% 
               Map(function(.) c(.,rep(NA,n-length(.))),.) %>%
