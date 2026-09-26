@@ -2,6 +2,7 @@
 #' @importFrom Rcpp evalCpp
 #' @importFrom magrittr %>%
 #' @importFrom sets set tuple as.tuple set_union set_symdiff set_is_empty as.set
+#' @import tibble
 NULL
 
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))

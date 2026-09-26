@@ -7,6 +7,7 @@ export(segmentations)
 exportMethods(plot)
 exportMethods(subset)
 exportMethods(unique)
+import(tibble)
 importFrom(Rcpp,evalCpp)
 importFrom(magrittr,"%>%")
 importFrom(sets,
