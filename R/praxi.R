@@ -1,6 +1,6 @@
 #' @useDynLib praxi, .registration = TRUE
 #' @importFrom Rcpp evalCpp
-#' @importFrom magrittr %>%
+#' @import magrittr
 #' @importFrom sets set tuple as.tuple set_union set_symdiff set_is_empty as.set
 #' @import tibble
 NULL
