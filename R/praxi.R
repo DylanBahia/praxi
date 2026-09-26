@@ -128,7 +128,7 @@ crops <- function(y,p,b_min,b_max){
   
   func <- function(b){
     result <- praxi(y,p,b)
-    return(list(result@cost,rep(1,nrow(result@res)),result@res))
+    return(list(result@cost,nrow(result@res),result@res))
   }
   
   result <- praxi::unique(crops::crops(func,b_min,b_max))
