@@ -131,14 +131,14 @@ setMethod("anomalies",signature=list("praxi.class"),function(object)
 })
 
 #' @export
-crops <- function(y,p,b_min,b_max){
+crops <- function(y,p,b_min,b_max,max_iterations=Inf){
   
   func <- function(b){
     result <- praxi(y,p,b)
     return(list(result@cost,nrow(result@res),result@res))
   }
   
-  result <- praxi::unique(crops::crops(func,b_min,b_max))
+  result <- praxi::unique(crops::crops(func,b_min,b_max,max_iterations))
   
   return(result)
 }
