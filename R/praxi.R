@@ -1,5 +1,5 @@
-#' @useDynLib mypackage, .registration = TRUE
-#' @importFrom Rcpp, evalCpp
+#' @useDynLib praxi, .registration = TRUE
+#' @importFrom Rcpp evalCpp
 NULL
 
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
