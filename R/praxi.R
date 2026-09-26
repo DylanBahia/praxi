@@ -248,8 +248,15 @@ setMethod("plot",signature=list("crops.class"),
               subset(.,select = -c(beta,Q,Qm,m)) %>%
               melt(., id=c("dummy")) %>% 
               .[complete.cases(.), ] %>%
-              ggplot(.,aes(x=value,y=dummy)) %>% 
-              add(geom_point()) %>%
+              separate(value, into = c("st", "nd"), sep = ",") %>%
+              mutate(
+                st = as.numeric(gsub("\\(", "", st)),
+                nd = as.numeric(gsub("\\)", "", nd))
+              ) %>% 
+              ggplot(.) %>% 
+              add(geom_segment(aes(x=st,x_end=nd,y=dummy,y_end=dummy))) %>%
+              add(geom_point(aes(x=st,y=dummy))) %>%
+              add(geom_point(aes(x=nd,y=dummy))) %>% 
               add(labs(x="location",y="penalty")) %>%
               add(geom_hline(aes(yintercept=dummy))) %>%
               add(scale_y_continuous(breaks = seq(1:nrow(df)),labels=signif(df$beta,digits=3),sec.axis = sec_axis( ~.,breaks = seq(1:nrow(df)),labels=signif(df$Qm,digits=4),name="unpenalised cost"))) %>%
