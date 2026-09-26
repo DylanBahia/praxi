@@ -256,7 +256,7 @@ setMethod("plot",signature=list("crops.class"),
                 nd = as.numeric(gsub("\\)", "", nd))
               ) %>% 
               ggplot(.) %>% 
-              add(geom_segment(aes(x=st,x_end=nd,y=dummy,y_end=dummy))) %>%
+              add(geom_segment(aes(x=st,xend=nd,y=dummy,yend=dummy))) %>%
               add(geom_point(aes(x=st,y=dummy))) %>%
               add(geom_point(aes(x=nd,y=dummy))) %>% 
               add(labs(x="location",y="penalty")) %>%
