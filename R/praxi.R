@@ -115,7 +115,7 @@ setMethod("plot",signature=list("praxi.class"),function(x)
   return(out)
 })
 
-
+#' @export
 setGeneric("anomalies",function(object,...)standardGeneric("anomalies"))
 
 setMethod("anomalies",signature=list("praxi.class"),function(object)
@@ -158,6 +158,7 @@ setMethod("summary",signature=list("crops.class"),function(object){
   invisible()
 })
 
+#' @export
 setMethod("unique",signature=list("crops.class"),function(x)
 {
   # appease package checks
@@ -183,6 +184,7 @@ setMethod("unique",signature=list("crops.class"),function(x)
   return(object)
 })
 
+#' @export
 setMethod("subset",signature=list("crops.class"), function(x,beta_min=0,beta_max=Inf)
 {
   # appease package checks
@@ -195,6 +197,7 @@ setMethod("subset",signature=list("crops.class"), function(x,beta_min=0,beta_max
   return(object)            
 })
 
+#' @export
 setGeneric("segmentations",function(object) {standardGeneric("segmentations")})
 setMethod("segmentations",signature=list("crops.class"),
           function(object)
@@ -223,6 +226,7 @@ setMethod("segmentations",signature=list("crops.class"),
             )           
           })
 
+#' @export
 setMethod("plot",signature=list("crops.class"),
           function(x)
           {
