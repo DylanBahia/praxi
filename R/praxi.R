@@ -246,7 +246,6 @@ setMethod("plot",signature=list("crops.class"),
               return(NULL)
             }
             df <- cbind(df,data.frame("dummy"=1:nrow(df)))
-            suppressWarnings(
             p <- df %>%
               subset(.,select = -c(beta,Q,Qm,m)) %>%
               melt(., id=c("dummy")) %>% 
@@ -259,10 +258,9 @@ setMethod("plot",signature=list("crops.class"),
               ggplot(.) %>% 
               add(geom_hline(aes(yintercept=dummy),linewidth=0.5)) %>%
               add(geom_segment(aes(x=st,xend=nd,y=dummy,yend=dummy),colour="blue",linewidth=1.5)) %>%
-              add(geom_point(aes(x=ifelse(st==nd,st,NA),y=ifelse(st==nd,dummy,NA)),colour="red")) %>%
+              add(geom_point(aes(x=ifelse(st==nd,st,NA),y=ifelse(st==nd,dummy,NA)),colour="red",na.rm=TRUE)) %>%
               add(labs(x="location",y="penalty")) %>%
               add(scale_y_continuous(breaks = seq(1:nrow(df)),labels=signif(df$beta,digits=3),sec.axis = sec_axis( ~.,breaks = seq(1:nrow(df)),labels=signif(df$Qm,digits=4),name="unpenalised cost"))) %>%
               add(theme_bw())
-            )
             return(p)       
           })
