@@ -3,6 +3,7 @@
 #' @import magrittr
 #' @importFrom sets set tuple as.tuple set_union set_symdiff set_is_empty as.set
 #' @import tibble
+#' @import ggplot2
 NULL
 
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))
