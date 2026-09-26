@@ -172,7 +172,7 @@ setMethod("unique",signature=list("crops.class"),function(x)
     Map(object@method,.) %>% 
     Map(function(.) .[2],.) %>% 
     Map(as.character,.)
-  key_value_pairs <- Map(tuple,keys,object@betas %>% unlist)
+  key_value_pairs <- Map(sets::tuple,keys,object@betas %>% unlist)
   hash_map <-    
     key_value_pairs %>%  
     Reduce(function(pair,map) {map[[pair[[1]]]] <- pair[[2]]; return(map);},
