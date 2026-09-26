@@ -215,13 +215,13 @@ setMethod("segmentations",signature=list("crops.class"),
             }
             n <- segs %>% Map(function(.) .[[2]],.) %>% unlist %>% max
             mat <- segs %>% 
-              Map(function(.) ifelse(.[[2]]!=0,paste0("(",.[[3]][,1],",", .[[3]][,2],")"),NA),.) %>% 
+              Map(function(.) if(.[[2]]!=0){paste0("(",.[[3]][,1],",", .[[3]][,2],")")} else{NA},.) %>% 
               Map(function(.) c(.,rep(NA,n-length(.))),.) %>%
               Reduce(rbind,.,matrix(nrow=0,ncol=n),right=TRUE)
             colnames(mat) <- Map(function(.) paste("anom.",.,sep=""),1:n) %>% unlist      
             return(      
-              Map(function(beta,seg) tibble(beta=beta,Qm=seg[[1]],Q=seg[[1]]+beta*length(seg[[2]]),
-                                            m=length(seg[[2]])),
+              Map(function(beta,seg) tibble(beta=beta,Qm=seg[[1]],Q=seg[[1]]+beta*seg[[2]],
+                                            m=seg[[2]]),
                   unlist(object@betas),
                   segs) %>%                                          
                 Reduce(add_row,.,tibble(beta=numeric(),Qm=numeric(),Q=numeric(),m=numeric())) %>%
