@@ -8,7 +8,7 @@ Authors@R: person("Your", "Name", role = c("aut", "cre"), email =
 Description: More about what it does (maybe more than one line).
 License: GPL (>= 2)
 Encoding: UTF-8
-Imports: Rcpp (>= 1.1.1), ggplot2, crops, magrittr, sets, tibble, reshape
+Imports: Rcpp (>= 1.1.1), ggplot2, crops, magrittr, sets, tibble, reshape, dplyr, tidyr
 Remotes: grosed/crops@devel
 LinkingTo: Rcpp
 Config/roxygen2/version: 8.1.0

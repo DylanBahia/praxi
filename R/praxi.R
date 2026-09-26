@@ -5,6 +5,8 @@
 #' @import tibble
 #' @import ggplot2
 #' @import reshape
+#' @importFrom dplyr mutate
+#' @importFrom tidyr separate
 NULL
 
 .praxi.class <- setClass("praxi.class",representation(y="numeric",p="numeric",b="numeric",cost="numeric",res="matrix"))

@@ -12,6 +12,7 @@ import(magrittr)
 import(reshape)
 import(tibble)
 importFrom(Rcpp,evalCpp)
+importFrom(dplyr,mutate)
 importFrom(sets,
   as.set,
   as.tuple,
@@ -21,4 +22,5 @@ importFrom(sets,
   set_union,
   tuple
 )
+importFrom(tidyr,separate)
 useDynLib(praxi, .registration = TRUE)
