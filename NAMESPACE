@@ -9,4 +9,13 @@ exportMethods(subset)
 exportMethods(unique)
 importFrom(Rcpp,evalCpp)
 importFrom(magrittr,"%>%")
+importFrom(sets,
+  as.set,
+  as.tuple,
+  set,
+  set_is_empty,
+  set_symdiff,
+  set_union,
+  tuple
+)
 useDynLib(praxi, .registration = TRUE)
