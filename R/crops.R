@@ -18,11 +18,12 @@ crops <- function(y,p,b_min,b_max){
     return(list(result@cost-nrow(result@res)*b,nrow(result@res),result@res))
   }
   
-  result <- praxi::unique(crops::crops(func,b_min,b_max))
+  result <- unique(crops::crops(func,b_min,b_max))
   
   return(result)
 }
 
+#' @export
 setMethod("summary",signature=list("crops.class"),function(object){
   cat("crops analysis",sep="")
   cat('\n',sep="")
