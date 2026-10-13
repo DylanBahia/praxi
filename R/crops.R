@@ -4,6 +4,7 @@
 #' @import tibble
 #' @import ggplot2
 #' @import reshape
+#' @import crops
 #' @importFrom dplyr mutate
 #' @importFrom tidyr separate
 NULL
